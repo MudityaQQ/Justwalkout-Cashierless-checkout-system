@@ -1,0 +1,148 @@
+{% extends "./base.html" %}
+
+{% block head %}
+<meta http-equiv="refresh" content="5">
+{% endblock head %}
+  
+{% block title %}
+Virtual Cart
+{% endblock title %}
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}">      
+      JustWalkOut <img src="/static/assets/nav.png" alt="" width="30" height="30" class="d-inline-block align-top">  <b>Virtual Cart</b>
+    </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>
+{% endblock nav %}
+  
+
+{% load static %}
+{% load cart %}
+{% block content %}
+
+<div class="container-fluid">
+   <div class="row my-2">
+    <div class="col-8">
+      
+      <div class="card border-dark">
+        <div class="card-header"><i class="fas fa-baby-carriage"></i> Shopping Virtual Cart </div>
+        {% if products %}
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"><i class="fas fa-list-ul"></i> S.No</th>
+            <th scope="col"><i class="fas fa-box"></i> Product</th>
+            <th scope="col"><i class="fas fa-signature"></i> Product Name</th>
+            <th scope="col"><i class="fas fa-sort-numeric-up-alt"></i> Quantity</th>
+            <th scope="col"><i class="fas fa-tags"></i> Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in products %}
+          <tr>
+            <th scope="row">{{forloop.counter0}}</th>
+            
+            <td><img src="{{product.image.url}}" width="100" height="100" class="rounded float-start" alt="..."></td>
+            <td>{{product.name}}</td>
+            <td>{{product|cart_quantity:request.session.cart}}</td>
+            <td>{{product.price}} <i class="fas fa-rupee-sign"></i> </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        {% else %}
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><i class="fas fa-sad-cry" style="color:black;"></i> You have not shopped yet! </h5>
+            <p class="card-text">Start Shopping by visit the JustWalkOut Store. Enjoy Cashierless Seamless Shopping...</p>
+            <a href="javascript:history.back()" class="btn btn-outline-primary">Dashboard</a>
+          </div>
+        </div>
+        {% endif %}
+      </table>
+    </div>
+  </div>
+    <div class="col-4">
+      {% if products %}
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        <a><i class="fas fa-store-alt"></i> You are Inside,<b> Keep Shopping</b></a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% else %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <a><i class="fas fa-store-alt-slash"></i> You are Outside,<b> Visit JustWalkOut Store Soon.</b></a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+        
+
+      <div class="card border-primary mb-3">
+        <div class="card-header"><i class="fas fa-wallet"></i> Add Money to Wallet</div>
+
+        <div class="card-body">
+ <div class="d-grid gap-1 my-1">
+              <button class="btn btn-outline-dark" type="button"  data-bs-toggle="modal" data-bs-target="#addMoneyWallet"><img src="{% static 'assets/cardpay.png' %}" width="24" height="24"> JustWalkOut Face Pay</button> 
+              <button class="btn btn-outline-primary" type="button"  data-bs-toggle="modal" data-bs-target="#addMoneyWallet"><img src="{% static 'assets/upi.png' %}" width="24" height="24"> Unified Payments Interface</button> 
+            </div>
+
+<!-- Modal addMoneyWallet -->
+<div class="modal fade" id="addMoneyWallet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Money to Wallet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label">A/c Amount <i class="fas fa-rupee-sign"></i> : </label>
+  </div>
+  <div class="col-auto">
+    <input type="password" autocomplete="OFF" placeholder="example: 10,000" class="form-control" aria-describedby="passwordHelpInline">
+  </div>
+  <div class="col-auto">
+    <span id="passwordHelpInline" class="form-text">
+      Amount Must be under 10,000/-
+    </span>
+  </div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-primary"> <i class="far fa-handshake"></i> Pay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+            <hr>
+        <h3 class="my-4">Purchase Summary</h3>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+           <a> Subtotal</a>
+            <a>{{products|total_cart_price:request.session.cart}} <i class="fas fa-rupee-sign"></i></a>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+           <a>JustWalkOut</a>
+            <a>Free</a>
+          </li>
+         
+        </ul>
+        </div>
+        <div class="card-footer bg-transparent border-success">
+           <li class="list-group-item d-flex justify-content-between align-items-center">
+          <b>Estimated Total</b> 
+          <b>{{products|total_cart_price:request.session.cart}} <i class="fas fa-rupee-sign"></i></b>
+          </li></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
+    

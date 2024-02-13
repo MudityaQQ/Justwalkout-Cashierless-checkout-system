@@ -1,0 +1,45 @@
+{% extends "../base.html" %}
+{% block title %}
+  Not Register Yet!!!
+{% endblock title %}
+{% block nav %}
+  <ul class="nav justify-content-center">
+      <li class="nav-item">
+          <a class="nav-link active" href="{% url 'home' %}">JustWalkOut - Cashierless Checkout Store</a>
+      </li>
+     </ul>
+{% endblock nav %}
+
+{% block content %}
+
+
+<div class="row my-4">
+  <div class="col-4">
+    <img src="/static/images/qrRegister.png" class="card-img-top rounded border" alt="...">
+
+  </div>
+  <div class="col-8">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>Oops,</strong> Seems like you are not registered yet. <a href= "{% url 'register' %}">Register</a> here or Scan QR code..
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="card">
+      <div class="row g-0 my-2">
+        <div class="col-md-4">
+          <img src="/static/assets/noFound.gif" float="right" alt="this slowpoke moves"  width=260/>
+
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Sorry, We are not able to authenticate you</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}

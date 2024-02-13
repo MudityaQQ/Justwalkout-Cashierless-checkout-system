@@ -1,0 +1,149 @@
+{% extends '../base.html' %}
+{% block title %}
+  Dashboard
+{% endblock title %}
+{% block head %}
+<meta http-equiv="refresh" content="30">
+{% endblock head %}
+{% block nav %}
+  
+<!-- nav bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      JustWalkOut
+      <img src="/static/assets/nav.png" alt="" width="30" height="30" class="d-inline-block align-top">
+    <b>{{ user.name }}</b>
+    </a> 
+    <a href="{% url 'logout' %}" ><button type="button" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> logout</button></a>
+  </div>
+
+</nav>
+<!-- end navbar -->
+{% endblock nav %}
+{% block content %}
+
+
+<div class="row">
+  <!-- profile section -->
+  <div class="col-4">
+    <div class="card text-center my-2"  style="width: 20rem;">
+      <div class="card-header list-group-item active">
+
+      </div>
+      <div class="card-body">
+        {% if user.image %}
+        <img src="{{ user.image.url }}" class="card-img-top rounded border" height="320" width="280" alt="...">
+        {% else %}
+        <img src="/static/images/dp.jpeg" class="card-img-top rounded border" height="320" width="280" alt="...">
+        {% endif %}
+        <ul class="list-group my-1">
+          <li class="list-group-item list-group-item-action active">{{user.name }} <i class="fas fa-user-tie"></i></li>
+          <li class="list-group-item list-group-item-action">{{ user.balance }} <i class="fas fa-rupee-sign"></i> <i class="fas fa-wallet"></i> </li>
+          <li class="list-group-item list-group-item-action">{{ user.phone }} <i class="fas fa-phone"></i></li>
+          <li class="list-group-item list-group-item-action">{{ user.email }} <i class="fas fa-envelope"></i></li>
+        
+        </ul>
+        
+      </div>
+      <div class="card-footer text-muted list-group-item active">
+
+      </div>
+    </div>
+    </div>
+  <!-- end profile section -->
+
+    <!-- product table section -->
+    <div class="col-8 my-2">
+
+      <!-- alert of are you in store or not? -->
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="fas fa-store-alt-slash"></i> {{user.name}}, </strong> you are outside the store. 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+         <b><i class="fas fa-history"></i> SHOPPING HISTORY</b>
+         
+         <a href="#" class="btn btn-outline-primary" style="float: right;"data-bs-toggle="modal" data-bs-target="#addMoneyWallet"><i class="fas fa-wallet"></i>  Add Money</a>
+         <a href="{% url 'cart' %}" class="btn btn-outline-primary mx-1" style="float: right;"><i class="fas fa-baby-carriage"></i> Virtual Cart</a>
+
+<!-- Modal addMoneyWallet -->
+<div class="modal fade" id="addMoneyWallet" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add Money to Wallet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label">A/c Amount <i class="fas fa-rupee-sign"></i> : </label>
+  </div>
+  <div class="col-auto">
+    <input type="password" autocomplete="OFF" placeholder="example: 10,000" class="form-control" aria-describedby="passwordHelpInline">
+  </div>
+  <div class="col-auto">
+    <span id="passwordHelpInline" class="form-text">
+      Amount Must be under 10,000/-
+    </span>
+  </div>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-primary"> <i class="far fa-handshake"></i> Pay</button>
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+        <div class="card-body">
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col"><i class="fas fa-list-ul"></i> S.No</th>
+                <th scope="col"><i class="fas fa-box"></i> Products</th>
+                <th scope="col"><i class="fas fa-signature"></i> Product Name</th>
+                <th scope="col"><i class="fas fa-calendar-alt"></i> Purchase Date</th>
+                <th scope="col"><i class="fas fa-sort-numeric-up-alt"></i> Quantity</th>
+                <th scope="col"><i class="fas fa-tags"></i> Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              {% if orders %}
+              {% for order in orders reversed %}
+              
+              <tr>
+                <th scope="row">{{forloop.counter0}})</th>
+                <td><img src="{{order.product.image.url }}" class="rounded  mx-auto d-block" alt="..." width="40" height="50"></td>
+               <td>{{order.product}}</td>
+               <td>{{order.date}}</td>
+               <td>{{order.quantity}}</td>
+               <td>{{order.price}} <i class="fas fa-rupee-sign"></i></td>
+                </tr>        
+
+              {% endfor %}  
+              {% else %}
+              <div class="alert alert-primary" role="alert">
+                {{user.name}}, you have not visited JustWalkOut Store yet!
+              </div>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+     
+        </div>
+      </div>
+
+
+    <!-- end product table section -->
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,12 @@
+The project is based on the Cashier-less checkout shopping experience for Retail Customers. In India, there are over 14 million Retail shops and outlies that work/serve in the traditional way for retail customers, and standing in the queue for checkout was the painfully part of the shopping experience. By this project helps retail outlies to provide their customer with a cashier-less and checkout-free mobile shopping experience.
+In this project, we have used the latest technology which was provided by Azure Cloud.
+Firstly, The new customer will register by providing name and face by using Face Recognition Azure services. 
+Second, The Customer will visit the outlet, the customer's face is identified at the entrance and the software will create a session with that specific customer and track him/her inside the store. 
+Third, when the customer picked the product, that product is added to the virtual cart of that customer session which was created prior, and if she/he wants to return it, can easily keep it on the store shelves, and the system will automatically detect the product and update the customer virtual cart.
+In the last, for the checkout process, when the customer walks out of the store the exit door camera will identify the customer’s face using face recognition Azure and automatically deduct the payment.
+All this system heavily depends on sensor fusion, computer vision, and deep learning algorithms and by using Azure, we can easily implement all backend easily.
+This Solution has a huge advantage in data collection, inventory management, and customer relationship management, we will use “Azure Data Lake Analytics” for data mining and this could potentially cause an increase in profits, faster shopping experiences, and job role changes and this could mean instead of cashiers, we will have concierges, greeters, and sampler staff. This model also used in libraries, check-ins at doctors’ offices, restaurants/cafes, fertilizers stores for farmers, and warehouses.
+Conclusion,
+By using advanced technology and computer integrated inventory management system all backed by Azure cloud-enable the customer to take the product off the shelves, put them in their virtual cart, and leave the store without going through the checkout line. Besides the convenience to the customer, the Store manager evidently plans to benefit through a reduction of checkout clerks. In the long term, the cost of implementation, maintaining, and sustaining the system will decrease because of this cost-saving and efficient model for businesses.
+
+

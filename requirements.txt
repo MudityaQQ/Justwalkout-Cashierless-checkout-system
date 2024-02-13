@@ -1,0 +1,11 @@
+psycopg2==2.7.1
+opencv-python
+numpy
+pillow
+playsound
+datetime
+gtts
+django
+pyzbar
+face_recognition==1.2.31
+

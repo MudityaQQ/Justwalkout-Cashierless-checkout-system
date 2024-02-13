@@ -1,0 +1,120 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}
+    Store Home
+{% endblock title %}
+    
+
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">JustWalkOut <img src="/static/assets/nav.png" alt="" width="30" height="30" class="d-inline-block align-top">
+        <b>Store Dashboard</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+{% endblock nav %}
+    
+
+{% block content %}
+<div class="container-fluid">
+    
+<div class="row">
+    <div class="col-8 my-2">
+
+      <div class="card">
+        <div class="card-header">
+          <b>Products Details</b>
+          <i class="fas fa-boxes"></i>  </div>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"><i class="fas fa-list-ul"></i> S.No</th>
+              <th scope="col"><i class="fas fa-box"></i> Product</th>
+              <th scope="col"><i class="fas fa-street-view"></i> Product ID</th>
+              <th scope="col"><i class="fas fa-signature"></i> Product Name</th>
+              <th scope="col"><i class="fas fa-tags"></i> Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in allProducts %}
+            <tr>
+
+              <th scope="row">{{forloop.counter0}})</th>
+              <td><img src="{{p.image.url}}" width="50" height="50" class="rounded float-start" alt="..."></td>
+              <th scope="row">0000{{p.idProduct}}</th>
+              <td>{{p.name}}</td>
+              <td><b>{{p.price}} <i class="fas fa-rupee-sign"></i></b></td>
+            </tr>
+            {% endfor %}
+        
+          </tbody>
+        </table>
+      </div>
+<div class="my-2">
+        <a href="{% url 'checkIn' %}"><button type="button" id="checkIn" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> CheckIn</button></a>
+        <a href="{% url 'productInfo' %}"><button type="button" id="productInfo" class="btn btn-primary">productInfo</button></a>
+        <a href="{% url 'cart' %}"><button type="button" class="btn btn-primary">cart</button></a>
+        <a href="{% url 'checkout' %}"><button type="button" id="checkOut" class="btn btn-primary">checkout</button></a>  
+        <a href="{% url 'userWelcomePage' %}"><button type="button" class="btn btn-primary">userWelcomePage</button></a>  
+        
+      </div>
+
+
+    </div>
+    <div class="col">
+      <div class="row my-2">
+        <div class="col">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+              Customer Inside <i class="fas fa-person-booth"></i>
+             </li>
+             
+             {% if customers %}
+               
+             
+             {% for c in customers %}
+             
+             <li class="list-group-item d-flex justify-content-between align-items-center">
+               {{c}}
+               <i class="fas fa-toggle-on fa-2x" style="color:dodgerblue"></i>
+               <audio src="{% static 'audio/output.mp3' %}" id="welcomeAudio"></audio>
+               {% endfor %}
+              </li>
+              {% else %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+               No Customer Inside
+               <i class="fas fa-toggle-off fa-2x"></i>
+              {% endif %}
+          </ul>
+          <ul class="list-group my-2">
+            <li class="list-group-item d-flex justify-content-between align-items-center active">
+              Total Customer <i class="fas fa-users"></i>
+             </li>
+             {% for t in totalCustomers %}
+               
+             <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{t}}
+              <span class="badge bg-success rounded-pill">Active</span>
+            
+             {% endfor %}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      
+      
+
+  </div>
+</div>
+
+{% endblock content %}
+
+
+{% block js %}
+<script src="{% static 'js/app.js' %}"></script>
+{% endblock js %}
+  
